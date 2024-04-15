@@ -39,8 +39,8 @@ export class CreateFormComponent {
 
     this.http.post("Api/Form", data, {observe: "response"})
       .subscribe((response) => {
-        if (response.status == 201) {
-          this.router.navigate(["/"], {});
+        if (response.status == 201 || response.status == 204) {
+          this.router.navigate(["/view-forms"], {});
         }
       });
   }

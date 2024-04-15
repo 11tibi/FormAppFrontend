@@ -1,0 +1,22 @@
+<div class="mx-2 my-4">
+  <input id="question" class="form-control my-2" placeholder="Question" required [(ngModel)]="checkbox.QuestionText">
+  <div>
+    <div *ngFor="let choice of checkbox.Choices; let i = index; trackBy: trackByFn" class="my-2 input-group">
+      <span class="input-group-text" id="choice">
+        <i class="bi bi-circle mx-2" aria-describedby="choice"></i>
+      </span>
+      <input class="form-control" [(ngModel)]="checkbox.Choices[i].optionText">
+      <button class="btn btn-danger" (click)="delete(i)">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+    <div class="form-check form-switch mx-2">
+      <input class="form-check-input" type="checkbox" id="required-field" [(ngModel)]="checkbox.IsRequired"
+             (click)="setRequired()">
+      <label class="form-check-label" for="required-field">Required</label>
+    </div>
+    <button class="btn btn-primary m-2" (click)="addChoice()">
+      Add new field
+    </button>
+  </div>
+</div>

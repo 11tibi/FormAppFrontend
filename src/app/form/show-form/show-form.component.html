@@ -1,0 +1,29 @@
+<div class="card card-body m-5">
+  <h2 class="text-center my-4">{{ form.title }}</h2>
+  <div class="card m-2" *ngFor="let question of form.questions">
+    <h3 class="m-4 d-inline">
+      {{ question.questionText }}
+      <span *ngIf="question.isRequired" class="text-danger text-lg-start">*</span>
+    </h3>
+
+    <div class="m-4" *ngIf="question.questionTypeId == 1">
+      <div class="form-check my-2" *ngFor="let option of question.options">
+        <input class="form-check-input" type="checkbox" name="questionRadioButton{{question.id}}"
+               [value]="option.id" (change)="selectCheckbox(option.id, question.id)">
+        <label class="form-check-label">{{ option.optionText }}</label>
+      </div>
+    </div>
+
+    <div class="m-4" *ngIf="question.questionTypeId == 2">
+      <div class="form-check my-2" *ngFor="let option of question.options">
+        <input class="form-check-input" type="radio" name="questionRadioButton{{question.id}}"
+               [value]="option.id" (change)="selectRadio(option.id, question.id)" required="{{question.isRequired}}">
+        <label class="form-check-label">{{ option.optionText }}</label>
+      </div>
+    </div>
+
+  </div>
+  <button class="btn btn-primary m-2" (click)="submit()">
+    Submit
+  </button>
+</div>

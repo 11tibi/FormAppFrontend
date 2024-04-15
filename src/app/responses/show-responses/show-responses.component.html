@@ -1,0 +1,31 @@
+<div class="card card-body m-5">
+  <div class="d-flex flex-row ">
+    <h2 class="m-1 d-inline">
+      {{ form.title }}
+    </h2>
+    <button class="btn btn-link d-inline mx-3" [cdkCopyToClipboard]="copyLink(form.url)">
+      Copy link
+    </button>
+    <button class="btn btn-outline-dark m-3" (click)="edit()">
+      <i class="bi bi-pencil"></i>
+    </button>
+    <button class="btn btn-danger m-3" (click)="delete()">
+      <i class="bi bi-trash"></i>
+    </button>
+  </div>
+  <h3 class="m-1 my-3">
+    Is open: {{ form.isOpen }}
+  </h3>
+  <hr/>
+  <h2 class="m-1">
+    Responses
+  </h2>
+  <div class="m-3 d-flex flex-row justify-content-between card" *ngFor="let response of responses">
+    <h4 class="m-3 flex-fill" (click)="goToResponse(response.id)">
+      {{ response.user.email }}
+    </h4>
+    <div class="d-flex align-items-center m-3">
+      Submitted At: {{ response.submittedAd | date }}
+    </div>
+  </div>
+</div>

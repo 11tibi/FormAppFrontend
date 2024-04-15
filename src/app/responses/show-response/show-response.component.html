@@ -1,0 +1,42 @@
+<div class="m-5 card card-body">
+  <div class="d-flex flex-row justify-content-between">
+    <h3 class="d-inline">{{ form.title }}</h3>
+    <button class="btn btn-danger d-inline" (click)="delete(response.id)">
+      <i class="bi bi-trash"></i>
+    </button>
+  </div>
+  <div class="d-flex align-items-center my-1">
+    Submitted At: {{ response.submittedAd | date }}
+  </div>
+  <hr/>
+  <div class="my-1" *ngFor="let question of form.questions">
+    <h3 class="my-3">
+      {{ question.questionText }}
+    </h3>
+    <div class="input-group" *ngFor="let option of question.options">
+
+      <span class="input-group-text"
+            *ngIf="question.questionTypeId == 2; else checkbox;">
+         <div *ngIf="isSelected(option); else uncheckedCheckbox;">
+            <i class="bi bi-check2-circle"></i>
+          </div>
+          <ng-template #uncheckedCheckbox>
+            <i class="bi bi-circle" aria-describedby="choice"></i>
+          </ng-template>
+      </span>
+      <ng-template #checkbox>
+        <span class="input-group-text">
+          <div *ngIf="isSelected(option); else uncheckedCheckbox;">
+            <i class="bi bi-check2-square"></i>
+          </div>
+          <ng-template #uncheckedCheckbox>
+            <i class="bi bi-square" aria-describedby="choice"></i>
+          </ng-template>
+        </span>
+      </ng-template>
+      <div class="form-control">
+        {{ option.optionText }}
+      </div>
+    </div>
+  </div>
+</div>

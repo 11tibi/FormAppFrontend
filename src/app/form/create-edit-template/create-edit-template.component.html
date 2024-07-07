@@ -1,15 +1,16 @@
 <div class="card card-body">
   <input class="mx-2 form-control" placeholder="Form Title" [(ngModel)]="formTitle"/>
-  <div class="" *ngFor="let question of questions; let i = index;">
-    <div [ngSwitch]="question.component">
+  <div class="row" *ngFor="let question of questions; let i = index;">
+    <div class="" [ngSwitch]="question.component">
       <app-multiple-choice *ngSwitchCase="MultipleChoiceComponent" [id]="i" [checkbox]="question.checkbox"/>
       <app-checkboxes *ngSwitchCase="CheckboxesComponent" [id]="i" [checkbox]="question.checkbox"/>
     </div>
-    <button class="btn btn-danger" (click)="delete(i)">
+    <button class="btn btn-danger col mx-2" (click)="delete(i)">
       <i class="bi bi-trash"></i>
     </button>
+
   </div>
-  <select class="form-select m-2" aria-label="New question" (change)="addQuestion($event)">
+  <select class="form-select mx-2 mt-4" aria-label="New question" (change)="addQuestion($event)">
     <option selected disabled>Add new question</option>
     <option value="1">Multiple Choice</option>
     <option value="2">Checkbox</option>

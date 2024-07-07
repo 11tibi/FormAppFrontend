@@ -1,12 +1,11 @@
 import {Component, ViewChild} from '@angular/core';
 import {MultipleChoiceComponent} from "../../form-question-type/multiple-choice/multiple-choice.component";
 import {CheckboxesComponent} from "../../form-question-type/checkboxes/checkboxes.component";
-import {NgComponentOutlet, NgForOf, NgSwitch, NgSwitchCase} from "@angular/common";
+import {NgComponentOutlet, NgForOf, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 import {FormCreate} from "../../../models/FormCreate";
 import {CreateEditTemplateComponent} from "../create-edit-template/create-edit-template.component";
+import {CreateFormService} from "../../../services/CreateFormService";
 
 @Component({
   selector: 'app-create-form',
@@ -19,15 +18,17 @@ import {CreateEditTemplateComponent} from "../create-edit-template/create-edit-t
     NgSwitchCase,
     NgComponentOutlet,
     FormsModule,
-    CreateEditTemplateComponent
+    CreateEditTemplateComponent,
+    NgIf
   ],
   templateUrl: './create-form.component.html',
   styleUrl: './create-form.component.css'
 })
 export class CreateFormComponent {
   @ViewChild(CreateEditTemplateComponent) createComponent!: CreateEditTemplateComponent;
+  isValidForm: boolean = true;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(public createFormService: CreateFormService) {
   }
 
   submit() {
@@ -37,11 +38,10 @@ export class CreateFormComponent {
     this.createComponent.checkboxesComponents.forEach((item) => data.Questions.push(item.checkbox));
     this.createComponent.multipleChoiceComponents.forEach((item) => data.Questions.push(item.checkbox));
 
-    this.http.post("Api/Form", data, {observe: "response"})
-      .subscribe((response) => {
-        if (response.status == 201 || response.status == 204) {
-          this.router.navigate(["/view-forms"], {});
-        }
-      });
+    if (this.createFormService.isValidForm(data)) {
+      this.createFormService.submitNewForm(data);
+    } else {
+      this.isValidForm = false;
+    }
   }
 }

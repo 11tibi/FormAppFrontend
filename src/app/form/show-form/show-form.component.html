@@ -23,6 +23,9 @@
     </div>
 
   </div>
+  <div class="text-danger mx-3" *ngIf="!isValidResponse">
+    * Please ensure all mandatory questions are completed before submitting the form.
+  </div>
   <button class="btn btn-primary m-2" (click)="submit()">
     Submit
   </button>

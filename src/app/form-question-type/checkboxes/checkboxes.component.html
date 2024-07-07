@@ -10,15 +10,16 @@
         <i class="bi bi-trash"></i>
       </button>
     </div>
-    <div class="form-check form-switch mx-2">
-      <input class="form-check-input" type="checkbox" id="required-field" [(ngModel)]="checkbox.IsRequired"
+    <div class="form-check form-switch d-flex align-items-center">
+      <input class="form-check-input me-2" type="checkbox" id="required-field" [(ngModel)]="checkbox.IsRequired"
              (click)="setRequired()">
-      <label class="form-check-label" for="required-field">Required</label>
-    </div>
-    <div>
-      <button class="btn btn-primary m-2" (click)="addChoice()">
+      <label class="form-check-label me-2" for="required-field">Required</label>
+      <button class="btn btn-primary col" (click)="addChoice()">
         Add new field
       </button>
+    </div>
+    <div>
+
     </div>
   </div>
 </div>

@@ -5,7 +5,8 @@ import {Form} from "../../../models/Form";
 import {NgForOf, NgIf} from "@angular/common";
 import {ResponseCreate} from "../../../models/ResponseCreate";
 import {Answer} from "../../../models/Answer";
-import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ShowFormService} from "../../../services/ShowFormService";
 
 @Component({
   selector: 'app-show-form',
@@ -20,13 +21,15 @@ import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule} fro
   styleUrl: './show-form.component.css'
 })
 export class ShowFormComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpClient,
+              private showFormService: ShowFormService) {
   }
 
   url: string = "";
   form: Form = new Form();
   responseForm: ResponseCreate = new ResponseCreate();
   selectedOptions: number[] = [];
+  isValidResponse: boolean = true;
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get("url")!;
@@ -45,9 +48,11 @@ export class ShowFormComponent implements OnInit {
   }
 
   submit() {
-    this.http.post("Api/Response", this.responseForm).subscribe(response => {
-
-    });
+    if (this.showFormService.isValidResponse(this.responseForm, this.form)) {
+      this.showFormService.submitResponse(this.responseForm)
+    } else {
+      this.isValidResponse = false;
+    }
   }
 
   selectCheckbox(optionId: number, questionId: number) {

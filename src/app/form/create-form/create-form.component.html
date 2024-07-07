@@ -1,6 +1,9 @@
 <div class="mx-5 mt-5">
   <h3 class="mb-3">Create a new form</h3>
   <app-create-edit-template/>
+  <div class="text-danger mx-3" *ngIf="!isValidForm">
+    * Please ensure all mandatory questions are completed before submitting the form.
+  </div>
   <div class="d-grid my-2">
     <button class="btn btn-primary" type="button" (click)="submit()">Submit</button>
   </div>

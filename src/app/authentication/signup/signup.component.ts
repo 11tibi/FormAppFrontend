@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
       client_id: environment.google_client_id,
       callback: (response: any): void => {
         this.authService.googleLogin(response.credential);
-        this.router.navigate(["/"], {});
+        this.router.navigate(["/view-forms"], {});
       }
     })
 

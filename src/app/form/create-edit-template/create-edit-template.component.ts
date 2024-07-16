@@ -42,7 +42,7 @@ export class CreateEditTemplateComponent {
       case "2":
         this.questions.push({
           component: CheckboxesComponent, id: this.questions.length,
-          checkbox: new Checkbox(-1, 2, "",
+          checkbox: new Checkbox(-1, 1, "",
             [new Options(-1, -1, "Option 1"),
             new Options(-1, -1, "Option 2")],
             true, "create")
